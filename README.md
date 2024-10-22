@@ -1,8 +1,9 @@
+NAME:DEEPIKA P\
+REG NO:2122232400246
 # Ex-1 IMPLEMENTATION-OF-SYMBOL-TABLE
-## NAME: DHARSHINI V
-## ROLL.NO:212223040038
 # AIM :
-## To write a C program to implement a symbol table.
+To write a C program to implement a symbol table.
+
 # ALGORITHM
 1.	Start the program.
 2.	Get the input from the user with the terminating symbol ‘$’.
@@ -13,60 +14,72 @@
 7.	To reach a variable, enter the variable to be searched and symbol table has been checked for corresponding variable, the variable along with its address is displayed as result.
 8.	Stop the program. 
 # PROGRAM
-```
-#include<stdio.h>
-#include<ctype.h>
-#include<string.h>
-#include<stdlib.h>
+#include <stdio.h> 
+#include <ctype.h> 
+#include <string.h>
+#include <stdlib.h>
+
 #define MAX_EXPRESSION_SIZE 100
+
 int main() {
     int i = 0, j = 0, x = 0, n, flag = 0;
-    void *add[5]; // Array to store addresses
-    char b[MAX_EXPRESSION_SIZE], d[5], c, srch;
+    void *add[5];  // Stores addresses of dynamically allocated memory
+    char b[MAX_EXPRESSION_SIZE], d[5], c, srch;  // d size reduced to 5 since we're storing only a few identifiers
+
     printf("Enter the Expression terminated by $: ");
-    while ((c = getchar()) != '$' && i < MAX_EXPRESSION_SIZE - 1) {
+    
+    // Read the expression until '$' is encountered or max size is reached
+    while ((c = getchar()) != '$' && i < MAX_EXPRESSION_SIZE - 1) { 
         b[i++] = c;
     }
-    b[i] = '\0'; 
-    n = i; 
+    b[i] = '\0';  // Null terminate the string
+    n = i - 1;    // Correctly initialize n
+
     printf("Given Expression: %s\n", b);
-    printf("\nSymbol Table\n");
+    printf("\nSymbol Table\n"); 
     printf("Symbol\taddr\ttype\n");
-    for (j = 0; j < n; j++) {
+
+    for (j = 0; j <= n; j++) { 
         c = b[j];
-        if (isalpha((unsigned char)c)) { 
-            if (j == n - 1 || !isalpha(b[j + 1])) { 
-                void *p = malloc(sizeof(char));
-                add[x] = p; 
+        
+        if (isalpha((unsigned char)c)) {  // Check if character is alphabetic
+            if (j == n || b[j + 1] == '+' || b[j + 1] == '-' || b[j + 1] == '*' || b[j + 1] == '=') {
+                void *p = malloc(sizeof(char));  // Dynamically allocate memory
+                add[x] = p;
                 d[x] = c; 
-                printf("%c\t%p\tidentifier\n", c, p);
-                x++;
+                printf("%c\t%p\tidentifier\n", c, p); 
+                x++;  // Increment x to store new identifier
             }
         }
     }
-    getchar();
+
     printf("\nThe symbol to be searched: ");
+    getchar();  // Consume the newline from the previous input
     srch = getchar();
-    for (i = 0; i < x; i++) {
+
+    for (i = 0; i < x; i++) {  // Search for the symbol
         if (srch == d[i]) {
-            printf("Symbol Found\n");
+            printf("Symbol Found\n"); 
             printf("%c@address %p\n", srch, add[i]);
             flag = 1;
-            break;
+            break;  // Exit loop once symbol is found
         }
     }
-    if (flag == 0) {
+
+    if (flag == 0)
         printf("Symbol Not Found\n");
-    }
+
+    // Free dynamically allocated memory
     for (i = 0; i < x; i++) {
         free(add[i]);
     }
-    return 0;
+
+  return 0;
 }
-```
+
 # OUTPUT
-![374482333-ce1017fb-c74c-4581-9bc0-fad8bb69c7c9](https://github.com/user-attachments/assets/54de9ee8-1b46-4308-905e-e7f2702fdf34)
+
+![Screenshot 2024-10-05 150802](https://github.com/user-attachments/assets/82767ee9-38e3-48e0-b08e-ae4e23d69077)
 
 # RESULT
 ### The program to implement a symbol table is executed and the output is verified.
-
